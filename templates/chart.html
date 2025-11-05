@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>결과 확인하기</h2>
-<div id="kospi-chart">
-    <h3>KOSPI</h3>
-    <canvas id="kospi-canvas"></canvas>
-</div>
-<div id="kosdaq-chart">
-    <h3>KOSDAQ</h3>
-    <canvas id="kosdaq-canvas"></canvas>
+<div class="charts-container">
+    <div id="kospi-chart">
+        <h3>KOSPI</h3>
+        <canvas id="kospi-canvas"></canvas>
+    </div>
+    <div id="kosdaq-chart">
+        <h3>KOSDAQ</h3>
+        <canvas id="kosdaq-canvas"></canvas>
+    </div>
 </div>
 
 <script>

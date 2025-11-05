@@ -38,6 +38,7 @@ function createChart(canvasId, data, title) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
