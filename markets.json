@@ -1,0 +1,6 @@
+{
+"markets": {
+"KOSPI": "finance.naver.com/sise/sise_rise.naver",
+"KOSDAQ": "finance.naver.com/sise/sise_rise.naver?sosok=1"
+}
+}
