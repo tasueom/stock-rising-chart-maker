@@ -92,7 +92,6 @@ def get_chart(url):
             df.rename(columns={1: "종목명"}, inplace=True)
         
         # 현재가 컬럼 숫자 변환
-        
         if "현재가" in df.columns:
             # 쉼표 제거 후 정수화
             df["현재가"] = df["현재가"].str.replace(",", "").astype(int)
@@ -101,12 +100,17 @@ def get_chart(url):
             df.iloc[:, 2] = df.iloc[:, 2].str.replace(",", "").astype(int)
             df.rename(columns={2: "현재가"}, inplace=True)
         
-        df = df[["종목명","현재가"]].head(10)
+        if "등락률" not in df.columns:
+            # 만약 컬럼명이 조정되었다면 다섯번째 컬럼을 등락률로 설정
+            df.rename(columns={4: "등락률"}, inplace=True)
+        
+        df = df[["종목명","현재가","등락률"]].head(10)
         
         labels = df["종목명"].tolist()
         values = df["현재가"].tolist()
+        percentages = df["등락률"].tolist()
         
-        return labels, values
+        return labels, values, percentages
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -122,16 +126,18 @@ def upload():
         kospi_url = markets["KOSPI"]
         kosdaq_url = markets["KOSDAQ"]
         
-        kospi_labels, kospi_values = get_chart(kospi_url)
-        kosdaq_labels, kosdaq_values = get_chart(kosdaq_url)
+        kospi_labels, kospi_values, kospi_percentages = get_chart(kospi_url)
+        kosdaq_labels, kosdaq_values, kosdaq_percentages = get_chart(kosdaq_url)
         
         kospi_data = {
             "labels": kospi_labels,
-            "values": kospi_values
+            "values": kospi_values,
+            "percentages": kospi_percentages
         }
         kosdaq_data = {
             "labels": kosdaq_labels,
-            "values": kosdaq_values
+            "values": kosdaq_values,
+            "percentages": kosdaq_percentages
         }
         
         return render_template('chart.html', kospi_data=kospi_data, kosdaq_data=kosdaq_data)
