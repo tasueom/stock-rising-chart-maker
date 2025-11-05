@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>결과 확인하기</h2>
+<div id="kospi-chart">
+    <h3>KOSPI</h3>
+    <canvas id="kospi-canvas"></canvas>
+</div>
+<div id="kosdaq-chart">
+    <h3>KOSDAQ</h3>
+    <canvas id="kosdaq-canvas"></canvas>
+</div>
+
+<script>
+    const kospiData = {{kospi_data|tojson}}
+    const kosdaqData = {{kosdaq_data|tojson}}
+</script>
+
+<script src="{{url_for('static', filename='js/chart.js')}}"></script>
+{% endblock %}

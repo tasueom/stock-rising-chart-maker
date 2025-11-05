@@ -125,7 +125,16 @@ def upload():
         kospi_labels, kospi_values = get_chart(kospi_url)
         kosdaq_labels, kosdaq_values = get_chart(kosdaq_url)
         
-        return render_template('chart.html', kospi_labels=kospi_labels, kospi_values=kospi_values, kosdaq_labels=kosdaq_labels, kosdaq_values=kosdaq_values)
+        kospi_data = {
+            "labels": kospi_labels,
+            "values": kospi_values
+        }
+        kosdaq_data = {
+            "labels": kosdaq_labels,
+            "values": kosdaq_values
+        }
+        
+        return render_template('chart.html', kospi_data=kospi_data, kosdaq_data=kosdaq_data)
     return render_template('upload.html')
 
 if __name__ == '__main__':
